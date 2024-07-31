@@ -1,72 +1,58 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
 import {
+    getFirestore,
     collection,
-    addDoc,
-    getDocs
+    addDoc
 } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
-import { db } from "./config.js";
+const firebaseConfig = {
+    apiKey: "AIzaSyAA6_A2OK5ZCJazqIswRPtwKGlP_fE2TaA",
+    authDomain: "todoappwithfirestore1.firebaseapp.com",
+    projectId: "todoappwithfirestore1",
+    storageBucket: "todoappwithfirestore1.appspot.com",
+    messagingSenderId: "150922754020",
+    appId: "1:150922754020:web:cb2ce1732bcf2f2c1bb9f1",
+    measurementId: "G-GXTDDT1H63"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// function addNumberToDB() {
+//     try {
+//         let numberCollection = collection(db, 'number')
+//         let docRef = addDoc(numberCollection, {
+//             number: Math.round(Math.random() * 1000)
+//         })
+//         console.log(docRef);
+//     } catch (e) {
+//         console.error("Error adding document: ", e);
+//     }
+// }
+// addNumberToDB()
 
 
 // html element use in javascript
-let todo_form = document.querySelector('#todo_form')
-let input = document.querySelector('#input')
-let list = document.querySelector('#list')
-let delete_btn = document.querySelector('.deleteBtn')
-let edit_btn = document.querySelector('#editBtn')
 
-// add todos in empty array
-let array = []
+let todo_form = document.getElementById('todo_form')
+let input = document.getElementById('input')
 
-async function getData() {
-    const querySnapshot = await getDocs(collection(db, "todos"));
-    querySnapshot.forEach((doc) => {
-        console.log(doc.data())
-        array.push(doc.data())
-    });
-    console.log(array)
-    renderScreen()
-}
-getData()
+// create collection
+let todoCollectionToDb = collection(db, 'todos')
 
-// this func is for render screen
-let renderScreen = () => {
-    list.innerHTML = ''
-    array.map((item, index) => {
-        console.log(item);
-        list.innerHTML += `
-        <li class="list-style p-2 d-flex justify-content-between mt-2">
-            ${item.value}
-           <div>
-           <button class="deleteBtn">Delete</button>
-           <button id="editBtn">Edit</button>
-           </div>
-        </li>
-        `
-    })
-}
-
-
-// todo input
 todo_form.addEventListener('submit', async event => {
     event.preventDefault()
-    if (input.value === '') {
-        alert('enter value')
-    } else {
-        array.push({
-            value: input.value
+
+    try {
+        let docRef = await addDoc(todoCollectionToDb, {
+            values: input.value,
+            createdAt: new Date().toISOString(),
         })
-        try {
-            const docRef = await addDoc(collection(db, "todos"), {
-                value: input.value
-            });
-            console.log("Document written with ID: ", docRef.id);
-            input.value = ''
-        } catch (e) {
-            console.error("Error adding document: ", e);
-        }
+        console.log(docRef);
+        input.value = ''
+    } catch (e) {
+        console.log(e);
     }
-    renderScreen()
 })
-
-
-// delete button
