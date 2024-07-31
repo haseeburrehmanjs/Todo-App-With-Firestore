@@ -1,73 +1,72 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 :root {
-    --primary: #4C4B16;
-    --secondry: #898121;
-    --SecondLast: #E7B10A;
-    --last: #F7F1E5;
+    --primary: #322C2B;
+    --secondry: #803D3B;
+    --light: #AF8260;
+    --extraLight: #E4C59E;
 }
 
-#BODY {
-    background: var(--primary);
+.main-body {
+    background-color: var(--secondry);
 }
 
-#BODY h1 {
-    color: var(--SecondLast);
+.main-navbar {
+    width: 100%;
+    height: 65px;
+    background-color: var(--primary);
 }
 
-.box-size {
-    width: 500px;
-    /* height: 600px; */
-    background-color: var(--last);
-    margin: 0 auto;
+.main-nav-content img {
+    width: 40px;
+    border-radius: 30px;
 }
 
-.box-size input {
-    width: 300px;
+.todo-box input {
+    width: 100%;
     height: 46px;
-    padding: 10px;
-    border: 10px;
+    padding-left: 15px;
+    background-color: var(--light);
     outline: none;
-    border-radius: 2px;
-}
-
-.box-size button {
-    width: 80px;
-    height: 46px;
-    background-color: var(--SecondLast);
     border: none;
-    border-radius: 2px;
 }
 
-.list-style {
-    list-style: none;
+.todo-box button {
+    width: 120px;
+    height: 46px;
+    background-color: var(--extraLight);
+    border: none;
+    color: var(--primary);
+    font-weight: 500;
 }
 
 #list {
-    padding-left: 42px;
-    padding-right: 42px;
-    margin-top: 10px;
+    display: inline;
 }
 
+#list li {
+    list-style: none;
+    font-size: 20px;
+}
 
-@media only screen and (max-width: 600px) {
-    .box-size {
-        width: 300px;
-        /* height: 600px; */
-        background-color: var(--last);
-        margin: 0 auto;
-    }
+#delete_btn {
+    background: transparent;
+    border: none;
+    font-size: 30px;
+    color: rgb(216, 4, 4);
+    transition: .5s ease;
+}
 
-    .box-size input {
-        width: 100px;
-        height: 46px;
-        padding: 10px;
-        border: 10px;
-        outline: none;
-        border-radius: 2px;
-    }
+#delete_btn:hover {
+    color: red;
+}
+
+#edit_btn {
+    background: transparent;
+    border: none;
+    font-size: 30px;
+    color: rgb(34, 145, 1);
+    transition: .5s ease;
+}
+
+#edit_btn:hover {
+    color: rgb(3, 225, 3);
 }
